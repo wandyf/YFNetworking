@@ -1,0 +1,7 @@
+platform :ios, '12.0'
+
+target 'YFNetworking_Example' do
+  
+    pod 'AFNetworking', '4.0.1'
+  
+end

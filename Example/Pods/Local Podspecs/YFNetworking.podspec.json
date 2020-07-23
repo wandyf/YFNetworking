@@ -1,0 +1,22 @@
+{
+  "name": "YFNetworking",
+  "version": "0.1.0",
+  "summary": "A short description of YFNetworking.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/wandyf/YFNetworking",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "wandyf": "dev.yunfeng.wang@outlook.com"
+  },
+  "source": {
+    "git": "https://github.com/wandyf/YFNetworking.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "YFNetworking/Classes/**/*"
+}
