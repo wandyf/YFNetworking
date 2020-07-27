@@ -67,7 +67,7 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AAADA2EF29689F65665F03F5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		D1B2F646BD103929EF1C1A6B /* YFNetworking.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YFNetworking.podspec; path = ../YFNetworking.podspec; sourceTree = "<group>"; };
+		D1B2F646BD103929EF1C1A6B /* WYFNetworking.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = WYFNetworking.podspec; path = ../WYFNetworking.podspec; sourceTree = "<group>"; };
 		F6D5B6B46A16518AF0C0C81D /* Pods-YFNetworking_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YFNetworking_Example.debug.xcconfig"; path = "Target Support Files/Pods-YFNetworking_Example/Pods-YFNetworking_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,7 +207,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				D1B2F646BD103929EF1C1A6B /* YFNetworking.podspec */,
+				D1B2F646BD103929EF1C1A6B /* WYFNetworking.podspec */,
 				AAADA2EF29689F65665F03F5 /* README.md */,
 				483E1F32DCD8B87178B0439E /* LICENSE */,
 			);
