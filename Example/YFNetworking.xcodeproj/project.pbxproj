@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E3B9E5624C9B46A00C455EA /* YFHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B9E5524C9B46A00C455EA /* YFHTTPManager.m */; };
+		5EC3A30524CEBE330007652F /* YFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EC3A30424CEBE330007652F /* YFNetworking.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 		483E1F32DCD8B87178B0439E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		5E3B9E5424C9B46A00C455EA /* YFHTTPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YFHTTPManager.h; sourceTree = "<group>"; };
 		5E3B9E5524C9B46A00C455EA /* YFHTTPManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YFHTTPManager.m; sourceTree = "<group>"; };
+		5EC3A30324CEBE330007652F /* YFNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YFNetworking.h; sourceTree = "<group>"; };
+		5EC3A30424CEBE330007652F /* YFNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YFNetworking.m; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* YFNetworking_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YFNetworking_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,6 +111,8 @@
 			children = (
 				5E3B9E5424C9B46A00C455EA /* YFHTTPManager.h */,
 				5E3B9E5524C9B46A00C455EA /* YFHTTPManager.m */,
+				5EC3A30324CEBE330007652F /* YFNetworking.h */,
+				5EC3A30424CEBE330007652F /* YFNetworking.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 			files = (
 				5E3B9E5624C9B46A00C455EA /* YFHTTPManager.m in Sources */,
 				6003F59E195388D20070C39A /* YFAppDelegate.m in Sources */,
+				5EC3A30524CEBE330007652F /* YFNetworking.m in Sources */,
 				6003F5A7195388D20070C39A /* YFViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
