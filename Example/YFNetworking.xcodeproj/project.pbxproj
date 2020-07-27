@@ -96,6 +96,7 @@
 		5E3B9E5224C9B44300C455EA /* YFNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				5E825FF824CABC8A00C6705D /* Common */,
 				5E3B9E5324C9B44300C455EA /* Core */,
 			);
 			name = YFNetworking;
@@ -109,6 +110,13 @@
 				5E3B9E5524C9B46A00C455EA /* YFHTTPManager.m */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		5E825FF824CABC8A00C6705D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		6003F581195388D10070C39A = {

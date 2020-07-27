@@ -22,7 +22,7 @@ pod 'YFNetworking'
 
 ## Author
 
-wandyf, dev.yunfeng.wang@outlook.com
+wandyf  <dev.yunfeng.wang@outlook.com>
 
 ## License
 
