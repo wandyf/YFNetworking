@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL bodyRequest;
 /// 请求超时时间，默认为15s
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+/// 是否允许在控制台打印日志,DEBUG模式下默认为YES
+@property (nonatomic, assign) BOOL enableLog;
 
 
 /// 取消当前所有请求

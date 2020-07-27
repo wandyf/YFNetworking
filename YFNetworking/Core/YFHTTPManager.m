@@ -35,6 +35,10 @@
         
         self.bodyRequest = NO;
         self.timeoutInterval = 15.0;
+        self.enableLog = NO;
+#if DEBUG
+        self.enableLog = YES;
+#endif
         
         self.httpManager = [AFHTTPSessionManager manager];
         self.urlManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -166,10 +170,10 @@
          responseObject:(id)responseObject
                     url:(NSString *)url
                 success:(void(^)(NSURLSessionDataTask *task, id rsponseObject))success {
-#if DEBUG
-    NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-    NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[RESPONSE OBJECT] >>>>> %@\n\n", url, string);
-#endif
+    if (self.enableLog) {
+        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[RESPONSE OBJECT] >>>>> %@\n\n", url, string);
+    }
     if (success) {
         success(task, responseObject);
     }
@@ -179,9 +183,9 @@
                 error:(NSError *)error
                   url:(NSString *)url
               failure:(void(^)(NSURLSessionDataTask *task, NSError *error))failure {
-#if DEBUG
-    NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[ERROR] >>>>> %@\n\n", url, error);
-#endif
+    if (self.enableLog) {
+        NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[ERROR] >>>>> %@\n\n", url, error);
+    }
     if (failure) {
         failure(task, error);
     }
