@@ -18,7 +18,9 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-                        基于AFNEtworking的网络层封装.
+                        基于AFNEtworking的网络层封装,继承YFNetworking,
+                        支持自定义HostURL和Base Paramaters,
+                        支持自定义参数加密方法.
                        DESC
 
   s.homepage         = 'https://github.com/wandyf/YFNetworking'
