@@ -60,10 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Required Method
 
 /// 服务器地址
-+ (NSString *)hostUrl NS_REQUIRES_SUPER;
++ (NSString *)hostUrl;
 
 /// 基础参数
-+ (NSMutableDictionary *)baseParams NS_REQUIRES_SUPER;
++ (NSMutableDictionary *)baseParams;
 
 /// 参数加密
 + (BOOL)needEncryptParam;
