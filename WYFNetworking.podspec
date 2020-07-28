@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WYFNetworking'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = '基于AFNEtworking的网络层封装.'
   s.description      = <<-DESC
                         基于AFNEtworking的网络层封装,继承YFNetworking,

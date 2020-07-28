@@ -60,7 +60,12 @@
 
 + (void)handleResponseObject:(id)responseObject withTask:(NSURLSessionDataTask *)task success:(void(^)(id))success failure:(void(^)(NSError *error))failure {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-    NSDictionary *responseDict = (NSDictionary *)responseObject;
+    NSDictionary *responseDict;
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        responseDict = (NSDictionary *)responseObject;
+    } else {
+        responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+    }
     if (!httpResponse || !responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
         NSError *myError = [NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:1 userInfo:@{NSLocalizedDescriptionKey:@"数据错误"}];
         if (failure) {
