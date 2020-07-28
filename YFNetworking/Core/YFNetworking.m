@@ -66,7 +66,7 @@
     } else {
         responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
     }
-    if (!httpResponse || !responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
+    if (!httpResponse || !responseDict || ![responseDict isKindOfClass:[NSDictionary class]]) {
         NSError *myError = [NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:1 userInfo:@{NSLocalizedDescriptionKey:@"数据错误"}];
         if (failure) {
             failure(myError);
