@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) AFHTTPSessionManager *httpManager;
 
-@property (nonatomic, strong) AFURLSessionManager *urlManager;
-
 @end
 
 @implementation YFHTTPManager
@@ -33,18 +31,14 @@
     self = [super init];
     if (self) {
         
-        self.bodyRequest = NO;
-        self.timeoutInterval = 15.0;
-        self.enableLog = NO;
 #if DEBUG
         self.enableLog = YES;
 #endif
         
         self.httpManager = [AFHTTPSessionManager manager];
-        self.urlManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
         
         AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
-        requestSerializer.timeoutInterval = self.timeoutInterval;
+        requestSerializer.timeoutInterval = 15.0;
         self.httpManager.requestSerializer = requestSerializer;
         
         AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -55,7 +49,6 @@
                                                      @"text/plain",
                                                      @"text/html", nil];
         self.httpManager.responseSerializer = responseSerializer;
-        self.urlManager.responseSerializer = responseSerializer;
     }
     return self;
 }
@@ -67,50 +60,52 @@
     [manager.httpManager.operationQueue cancelAllOperations];
 }
 
-- (NSURLSessionDataTask *)GET:(NSString *)url params:(NSDictionary *)params progress:(void (^)(NSProgress * _Nonnull))progress success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nonnull))success faulure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError * _Nonnull))failure {
-    if (self.bodyRequest) {
-        return [self method:@"GET" url:url params:params success:success failure:failure];
-    }
-    NSURLSessionDataTask *dataTask = [self.httpManager GET:url parameters:params headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self reponseWithTask:task responseObject:responseObject url:url success:success];
+- (NSURLSessionDataTask *)GET:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
+    NSURLSessionDataTask *dataTask = [self.httpManager GET:param.fullPath parameters:param.parameters headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
+        [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self errorWithTask:task error:error url:url failure:failure];
+        [self handleError:error withTask:task failure:failure];
+        [self logError:param error:error];
     }];
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)POST:(NSString *)url params:(NSDictionary *)params progress:(void (^)(NSProgress * _Nonnull))progress success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nonnull))success faulure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError * _Nonnull))failure {
-    if (self.bodyRequest) {
-        return [self method:@"POST" url:url params:params success:success failure:failure];
-    }
-    NSURLSessionDataTask *dataTask = [self.httpManager POST:url parameters:params headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self reponseWithTask:task responseObject:responseObject url:url success:success];
+- (NSURLSessionDataTask *)POST:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
+    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
+        [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self errorWithTask:task error:error url:url failure:failure];
+        [self handleError:error withTask:task failure:failure];
+        [self logError:param error:error];
     }];
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)PUT:(NSString *)url params:(NSDictionary *)params success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nonnull))success faulure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError * _Nonnull))failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager PUT:url parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self reponseWithTask:task responseObject:responseObject url:url success:success];
+- (NSURLSessionDataTask *)PUT:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
+    NSURLSessionDataTask *dataTask = [self.httpManager PUT:param.fullPath parameters:param.parameters headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
+        [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self errorWithTask:task error:error url:url failure:failure];
+        [self handleError:error withTask:task failure:failure];
+        [self logError:param error:error];
     }];
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)DELETE:(NSString *)url params:(NSDictionary *)params progress:(void (^)(NSProgress * _Nonnull))progress success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nonnull))success faulure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError * _Nonnull))failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager DELETE:url parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self reponseWithTask:task responseObject:responseObject url:url success:success];
+- (NSURLSessionDataTask *)DELETE:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
+    NSURLSessionDataTask *dataTask = [self.httpManager DELETE:param.fullPath parameters:param.parameters headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
+        [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self errorWithTask:task error:error url:url failure:failure];
+        [self handleError:error withTask:task failure:failure];
+        [self logError:param error:error];
     }];
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)POSTFILE:(NSString *)url params:(NSDictionary *)params image:(UIImage *)image progress:(void (^)(NSProgress * _Nonnull))progress success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nonnull))success faulure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError * _Nonnull))failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager POST:url parameters:params headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+- (NSURLSessionDataTask *)POSTFILE:(YFParameter *)param image:(UIImage *)image progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
+    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *ext = @"png";
         NSData *imageData = UIImagePNGRepresentation(image);
         if (imageData == nil) {
@@ -126,69 +121,61 @@
             progress(uploadProgress);
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self reponseWithTask:task responseObject:responseObject url:url success:success];
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
+        [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self errorWithTask:task error:error url:url failure:failure];
+        [self handleError:error withTask:task failure:failure];
+        [self logError:param error:error];
     }];
     return dataTask;
 }
 
 #pragma mark - Private Method
 
-- (NSURLSessionDataTask *)method:(NSString *)method
-                             url:(NSString *)url
-                          params:(NSDictionary *)params
-                         success:(void(^)(NSURLSessionDataTask *task, id rsponseObject))success
-                         failure:(void(^)(NSURLSessionDataTask *task, NSError *error))failure {
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url parameters:nil error:nil];
-    request.timeoutInterval = self.timeoutInterval;
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSError *error;
-    NSData *body = [NSJSONSerialization dataWithJSONObject:params options:kNilOptions error:&error];
-    if (error) {
-        return nil;
+- (void)handleResponseObject:(id)responseObject withTask:(NSURLSessionDataTask *)task success:(YFSuccess)success failure:(YFFailure)failure {
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+    NSDictionary *responseDict;
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        responseDict = (NSDictionary *)responseObject;
+    } else {
+        responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
     }
-    [request setHTTPBody:body];
-    
-    NSURLSessionDataTask *dataTask = [self.urlManager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if (error) {
-            [self errorWithTask:nil error:error url:url failure:failure];
-        } else {
-            [self reponseWithTask:nil responseObject:responseObject url:url success:success];
+    if (!httpResponse || !responseDict || ![responseDict isKindOfClass:[NSDictionary class]]) {
+        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:10000 userInfo:@{NSLocalizedDescriptionKey:@"数据校验失败"}];
+        if (failure) {
+            failure(myError);
         }
-    }];
-    [dataTask resume];
-    return dataTask;
-}
-
-- (void)reponseWithTask:(NSURLSessionDataTask *)task
-         responseObject:(id)responseObject
-                    url:(NSString *)url
-                success:(void(^)(NSURLSessionDataTask *task, id rsponseObject))success {
-    if (self.enableLog) {
-        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[RESPONSE OBJECT] >>>>> %@\n\n", url, string);
+        return;
     }
-    if (success) {
-        success(task, responseObject);
+    if (httpResponse.statusCode == 200) {
+        if (success) {
+            success(responseDict);
+        }
+        return;
+    } else {
+        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:httpResponse.statusCode userInfo:@{NSLocalizedDescriptionKey:@"网络请求错误"}];
+        if (failure) {
+            failure(myError);
+        }
+        return;
     }
 }
 
-- (void)errorWithTask:(NSURLSessionDataTask *)task
-                error:(NSError *)error
-                  url:(NSString *)url
-              failure:(void(^)(NSURLSessionDataTask *task, NSError *error))failure {
-    if (self.enableLog) {
-        NSLog(@"\n\n[REQUEST URL] >>>>> [%@]\n[ERROR] >>>>> %@\n\n", url, error);
-    }
+- (void)handleError:(NSError *)error withTask:(NSURLSessionDataTask *)task failure:(YFFailure)failure {
+    NSError *myError = [NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:error.code userInfo:error.userInfo];
     if (failure) {
-        failure(task, error);
+        failure(myError);
     }
+}
+
+- (void)logSuccess:(YFParameter *)param response:(id)responseObject {
+    if (!self.enableLog) { return; }
+    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, responseObject);
+}
+
+- (void)logError:(YFParameter *)param error:(NSError *)error {
+    if (!self.enableLog) { return; }
+    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, error);
 }
 
 @end
