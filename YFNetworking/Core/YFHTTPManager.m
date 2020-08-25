@@ -170,7 +170,13 @@
 
 - (void)logSuccess:(YFParameter *)param response:(id)responseObject {
     if (!self.enableLog) { return; }
-    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, responseObject);
+    NSDictionary *responseDict;
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        responseDict = (NSDictionary *)responseObject;
+    } else {
+        responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+    }
+    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, responseDict);
 }
 
 - (void)logError:(YFParameter *)param error:(NSError *)error {
