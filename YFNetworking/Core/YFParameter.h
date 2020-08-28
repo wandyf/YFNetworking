@@ -20,11 +20,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSTimeInterval timeout;
 
+
+
 - (BOOL)hasParametrs;
 
 - (NSMutableDictionary *)parameters;
 
 - (void)setValue:(NSObject *)value forName:(NSString *)name;
+
+
+
+- (BOOL)hasHeaders;
+
+- (NSMutableDictionary *)headers;
+
+- (void)setValue:(NSObject *)value forHeader:(NSString *)header;
+
 
 @end
 

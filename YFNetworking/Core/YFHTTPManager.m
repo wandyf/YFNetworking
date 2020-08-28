@@ -61,7 +61,7 @@
 }
 
 - (NSURLSessionDataTask *)GET:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager GET:param.fullPath parameters:param.parameters headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *dataTask = [self.httpManager GET:param.fullPath parameters:param.parameters headers:param.headers progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -72,7 +72,7 @@
 }
 
 - (NSURLSessionDataTask *)POST:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:param.headers progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -83,7 +83,7 @@
 }
 
 - (NSURLSessionDataTask *)PUT:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager PUT:param.fullPath parameters:param.parameters headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *dataTask = [self.httpManager PUT:param.fullPath parameters:param.parameters headers:param.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -94,7 +94,7 @@
 }
 
 - (NSURLSessionDataTask *)DELETE:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager DELETE:param.fullPath parameters:param.parameters headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *dataTask = [self.httpManager DELETE:param.fullPath parameters:param.parameters headers:param.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -105,7 +105,7 @@
 }
 
 - (NSURLSessionDataTask *)POSTFILE:(YFParameter *)param image:(UIImage *)image progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
-    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:param.headers constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *ext = @"png";
         NSData *imageData = UIImagePNGRepresentation(image);
         if (imageData == nil) {

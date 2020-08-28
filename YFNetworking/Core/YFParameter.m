@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSMutableDictionary *parameters;
 
+@property (nonatomic, strong) NSMutableDictionary *headers;
+
 @end
 
 @implementation YFParameter
@@ -31,6 +33,8 @@
     return _fullPath;
 }
 
+#pragma mark - parameter
+
 - (BOOL)hasParametrs {
     return [self.parameters allKeys].count > 0;
 }
@@ -44,6 +48,23 @@
 
 - (void)setValue:(NSObject *)value forName:(NSString *)name {
     [[self parameters] setValue:value forKey:name];
+}
+
+#pragma mark - header
+
+- (BOOL)hasHeaders {
+    return [self.headers allKeys].count > 0;
+}
+
+- (NSMutableDictionary *)headers {
+    if (!_headers) {
+        _headers = [NSMutableDictionary dictionary];
+    }
+    return _headers;
+}
+
+- (void)setValue:(NSObject *)value forHeader:(NSString *)header {
+    [[self headers] setValue:value forKey:header];
 }
 
 @end
