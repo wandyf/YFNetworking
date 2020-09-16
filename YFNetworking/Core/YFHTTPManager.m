@@ -176,12 +176,12 @@
     } else {
         responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
     }
-    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, responseDict);
+    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, param.headers, responseDict);
 }
 
 - (void)logError:(YFParameter *)param error:(NSError *)error {
     if (!self.enableLog) { return; }
-    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, error);
+    NSLog(@"\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n>>>>>%@\n", param.base, param.path, param.parameters, param.headers, error);
 }
 
 @end
