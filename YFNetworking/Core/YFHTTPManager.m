@@ -62,22 +62,22 @@
 
 - (NSURLSessionDataTask *)GET:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
     NSURLSessionDataTask *dataTask = [self.httpManager GET:param.fullPath parameters:param.parameters headers:param.headers progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self handleError:error withTask:task failure:failure];
         [self logError:param error:error];
+        [self handleError:error withTask:task failure:failure];
     }];
     return dataTask;
 }
 
 - (NSURLSessionDataTask *)POST:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
     NSURLSessionDataTask *dataTask = [self.httpManager POST:param.fullPath parameters:param.parameters headers:param.headers progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self handleError:error withTask:task failure:failure];
         [self logError:param error:error];
+        [self handleError:error withTask:task failure:failure];
     }];
     return dataTask;
 }
@@ -95,11 +95,11 @@
 
 - (NSURLSessionDataTask *)DELETE:(YFParameter *)param progress:(YFProgress)progress success:(YFSuccess)success failure:(YFFailure)failure {
     NSURLSessionDataTask *dataTask = [self.httpManager DELETE:param.fullPath parameters:param.parameters headers:param.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self handleError:error withTask:task failure:failure];
         [self logError:param error:error];
+        [self handleError:error withTask:task failure:failure];
     }];
     return dataTask;
 }
@@ -121,11 +121,11 @@
             progress(uploadProgress);
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
         [self logSuccess:param response:responseObject];
+        [self handleResponseObject:responseObject withTask:task success:success failure:failure];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self handleError:error withTask:task failure:failure];
         [self logError:param error:error];
+        [self handleError:error withTask:task failure:failure];
     }];
     return dataTask;
 }
@@ -141,7 +141,7 @@
         responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
     }
     if (!httpResponse || !responseDict || ![responseDict isKindOfClass:[NSDictionary class]]) {
-        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:10000 userInfo:@{NSLocalizedDescriptionKey:@"数据校验失败"}];
+        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:-1 userInfo:@{YFErrorCodeKey:@"-1", YFErrorMessageKey:@"数据结构错误"}];
         if (failure) {
             failure(myError);
         }
@@ -153,7 +153,7 @@
         }
         return;
     } else {
-        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:httpResponse.statusCode userInfo:@{NSLocalizedDescriptionKey:@"网络请求错误"}];
+        NSError *myError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier code:httpResponse.statusCode userInfo:@{YFErrorCodeKey:@"-1", YFErrorMessageKey:@"网络请求错误"}];
         if (failure) {
             failure(myError);
         }
@@ -162,7 +162,7 @@
 }
 
 - (void)handleError:(NSError *)error withTask:(NSURLSessionDataTask *)task failure:(YFFailure)failure {
-    NSError *myError = [NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:error.code userInfo:error.userInfo];
+    NSError *myError = [NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:error.code userInfo:@{YFErrorCodeKey:@"-1", YFErrorMessageKey:@"网络请求错误"}];
     if (failure) {
         failure(myError);
     }
