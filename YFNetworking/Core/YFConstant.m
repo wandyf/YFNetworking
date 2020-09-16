@@ -8,8 +8,8 @@
 
 #import "YFConstant.h"
 
-NSString const* YFErrorCodeKey = @"yf_key_error_code";
-NSString const* YFErrorMessageKey = @"yf_key_error_message";
+NSString * const YFErrorCodeKey = @"yf_key_error_code";
+NSString * const YFErrorMessageKey = @"yf_key_error_message";
 
 @implementation YFConstant
 

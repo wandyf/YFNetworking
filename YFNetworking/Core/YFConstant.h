@@ -16,8 +16,8 @@ typedef void (^YFProgress)(NSProgress *p);
 typedef void (^YFSuccess)(id responseObject);
 typedef void (^YFFailure)(NSError *error);
 
-extern NSString const* YFErrorCodeKey;
-extern NSString const* YFErrorMessageKey;
+extern NSString * const YFErrorCodeKey;
+extern NSString * const YFErrorMessageKey;
 
 @interface YFConstant : NSObject
 
