@@ -115,7 +115,7 @@
         NSDateFormatter *formatter = [NSDateFormatter.alloc init];
         [formatter setDateFormat:@"yyyyMMddHHmmssSSS"];
         NSString *fileName = [NSString stringWithFormat:@"%@.%@", [formatter stringFromDate:[NSDate date]], ext];
-        [formData appendPartWithFileData:imageData name:@"uploadImage" fileName:fileName mimeType:[NSString stringWithFormat:@"image/%@", ext]];
+        [formData appendPartWithFileData:imageData name:param.name fileName:fileName mimeType:[NSString stringWithFormat:@"image/%@", ext]];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         if (progress) {
             progress(uploadProgress);

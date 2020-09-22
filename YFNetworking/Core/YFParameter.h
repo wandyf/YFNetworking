@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSTimeInterval timeout;
 
-
+/// 上传文件时的name
+@property (nonatomic, copy) NSString *name;
 
 - (BOOL)hasParametrs;
 
